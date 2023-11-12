@@ -7,6 +7,12 @@ type SettlementsProps = {
 export default function Settlements({ settlements }: SettlementsProps) {
     if (!settlements) return null;
 
+    if (!settlements.length)
+        return (
+            <div className="flex items-center justify-center w-full mt-2">
+                No Expenses to settle
+            </div>
+        );
     return settlements.map((settlement) => {
         let { amount, expense, isSettled, id } = settlement;
 
