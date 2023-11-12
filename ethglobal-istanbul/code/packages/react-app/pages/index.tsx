@@ -125,21 +125,41 @@ export default function Home() {
     }, [address]);
 
     async function getExpenseFromExpenseId(expenseId: number) {
-        return await publicClient.readContract({
-            abi: SplitPayAbi,
-            address: SPLITPAY_CONTRACT_ADDRESS,
-            functionName: "getExpense",
-            args: [expenseId],
-        });
+        let provider = new ethers.providers.Web3Provider(window.ethereum);
+
+        let splitPayContract = new ethers.Contract(
+            SPLITPAY_CONTRACT_ADDRESS,
+            SplitPayAbi,
+            provider
+        );
+
+        return await splitPayContract.getExpense(expenseId);
+
+        // return await publicClient.readContract({
+        //     abi: SplitPayAbi,
+        //     address: SPLITPAY_CONTRACT_ADDRESS,
+        //     functionName: "getExpense",
+        //     args: [expenseId],
+        // });
     }
 
     async function getSettlementFromSettlementId(settlementId: number) {
-        return await publicClient.readContract({
-            abi: SplitPayAbi,
-            address: SPLITPAY_CONTRACT_ADDRESS,
-            functionName: "getSettlement",
-            args: [settlementId],
-        });
+        let provider = new ethers.providers.Web3Provider(window.ethereum);
+
+        let splitPayContract = new ethers.Contract(
+            SPLITPAY_CONTRACT_ADDRESS,
+            SplitPayAbi,
+            provider
+        );
+
+        return await splitPayContract.getSettlement(settlementId);
+
+        // return await publicClient.readContract({
+        //     abi: SplitPayAbi,
+        //     address: SPLITPAY_CONTRACT_ADDRESS,
+        //     functionName: "getSettlement",
+        //     args: [settlementId],
+        // });
     }
 
     return (
