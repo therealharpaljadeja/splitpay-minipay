@@ -9,6 +9,7 @@ import { formatEther, getContract } from "viem";
 import EffectiveBalance from "@/components/EffectiveBalance";
 import Expenses from "@/components/Expenses";
 import Settlements from "@/components/Settlements";
+import { ethers } from "ethers";
 
 export const SPLITPAY_CONTRACT_ADDRESS =
     "0x36Eef317F736FC5d7D0CAAe80a1bD7aD1D93B874";
@@ -54,16 +55,29 @@ export default function Home() {
     useEffect(() => {
         if (address) {
             (async () => {
-                let splitPayContract = getContract({
-                    abi: SplitPayAbi,
-                    address: SPLITPAY_CONTRACT_ADDRESS,
-                    publicClient,
-                });
+                // let splitPayContract = getContract({
+                //     abi: SplitPayAbi,
+                //     address: SPLITPAY_CONTRACT_ADDRESS,
+                //     publicClient,
+                // });
+
+                let provider = new ethers.providers.Web3Provider(
+                    window.ethereum
+                );
+
+                let splitPayContract = new ethers.Contract(
+                    SPLITPAY_CONTRACT_ADDRESS,
+                    SplitPayAbi,
+                    provider
+                );
 
                 let { effectiveBalance, expenses, settlements } =
-                    (await splitPayContract.read.getUserStats([
-                        address,
-                    ])) as UserStats;
+                    await splitPayContract.getUserStats(address);
+
+                // let { effectiveBalance, expenses, settlements } =
+                //     (await splitPayContract.read.getUserStats([
+                //         address,
+                //     ])) as UserStats;
 
                 setEffectiveUserBalance(formatEther(effectiveBalance));
 
