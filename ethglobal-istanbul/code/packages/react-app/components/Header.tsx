@@ -17,7 +17,7 @@ export default function Header() {
             setHideConnectBtn(true);
             connect();
         }
-    }, [connect]);
+    }, []);
 
     return (
         <Disclosure as="nav" className="bg-prosperity border-b border-black">
