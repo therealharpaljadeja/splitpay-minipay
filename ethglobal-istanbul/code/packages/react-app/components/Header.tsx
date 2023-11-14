@@ -13,7 +13,7 @@ export default function Header() {
         connector: new InjectedConnector(),
         onSettled(data, error) {
             if (!error) toast.success("Wallet Connected!");
-            toast.error("Unable to connect wallet");
+            else toast.error("Unable to connect wallet");
         },
     });
 
