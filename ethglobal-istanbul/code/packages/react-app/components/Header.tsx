@@ -3,6 +3,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useConnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 
@@ -10,6 +11,10 @@ export default function Header() {
     const [hideConnectBtn, setHideConnectBtn] = useState(false);
     const { connect } = useConnect({
         connector: new InjectedConnector(),
+        onSettled(data, error) {
+            if (!error) toast.success("Wallet Connected!");
+            toast.error("Unable to connect wallet");
+        },
     });
 
     useEffect(() => {
