@@ -55,29 +55,29 @@ export default function Home() {
     useEffect(() => {
         if (address) {
             (async () => {
-                // let splitPayContract = getContract({
-                //     abi: SplitPayAbi,
-                //     address: SPLITPAY_CONTRACT_ADDRESS,
-                //     publicClient,
-                // });
+                let splitPayContract = getContract({
+                    abi: SplitPayAbi,
+                    address: SPLITPAY_CONTRACT_ADDRESS,
+                    publicClient,
+                });
 
-                let provider = new ethers.providers.Web3Provider(
-                    window.ethereum
-                );
+                // let provider = new ethers.providers.Web3Provider(
+                //     window.ethereum
+                // );
 
-                let splitPayContract = new ethers.Contract(
-                    SPLITPAY_CONTRACT_ADDRESS,
-                    SplitPayAbi,
-                    provider
-                );
-
-                let { effectiveBalance, expenses, settlements } =
-                    await splitPayContract.getUserStats(address);
+                // let splitPayContract = new ethers.Contract(
+                //     SPLITPAY_CONTRACT_ADDRESS,
+                //     SplitPayAbi,
+                //     provider
+                // );
 
                 // let { effectiveBalance, expenses, settlements } =
-                //     (await splitPayContract.read.getUserStats([
-                //         address,
-                //     ])) as UserStats;
+                //     await splitPayContract.read.getUserStats(address);
+
+                let { effectiveBalance, expenses, settlements } =
+                    (await splitPayContract.read.getUserStats([
+                        address,
+                    ])) as UserStats;
 
                 setEffectiveUserBalance(formatEther(effectiveBalance));
 
@@ -125,41 +125,41 @@ export default function Home() {
     }, [address]);
 
     async function getExpenseFromExpenseId(expenseId: number) {
-        let provider = new ethers.providers.Web3Provider(window.ethereum);
+        // let provider = new ethers.providers.Web3Provider(window.ethereum);
 
-        let splitPayContract = new ethers.Contract(
-            SPLITPAY_CONTRACT_ADDRESS,
-            SplitPayAbi,
-            provider
-        );
+        // let splitPayContract = new ethers.Contract(
+        //     SPLITPAY_CONTRACT_ADDRESS,
+        //     SplitPayAbi,
+        //     provider
+        // );
 
-        return await splitPayContract.getExpense(expenseId);
+        // return await splitPayContract.getExpense(expenseId);
 
-        // return await publicClient.readContract({
-        //     abi: SplitPayAbi,
-        //     address: SPLITPAY_CONTRACT_ADDRESS,
-        //     functionName: "getExpense",
-        //     args: [expenseId],
-        // });
+        return await publicClient.readContract({
+            abi: SplitPayAbi,
+            address: SPLITPAY_CONTRACT_ADDRESS,
+            functionName: "getExpense",
+            args: [expenseId],
+        });
     }
 
     async function getSettlementFromSettlementId(settlementId: number) {
-        let provider = new ethers.providers.Web3Provider(window.ethereum);
+        // let provider = new ethers.providers.Web3Provider(window.ethereum);
 
-        let splitPayContract = new ethers.Contract(
-            SPLITPAY_CONTRACT_ADDRESS,
-            SplitPayAbi,
-            provider
-        );
+        // let splitPayContract = new ethers.Contract(
+        //     SPLITPAY_CONTRACT_ADDRESS,
+        //     SplitPayAbi,
+        //     provider
+        // );
 
-        return await splitPayContract.getSettlement(settlementId);
+        // return await splitPayContract.getSettlement(settlementId);
 
-        // return await publicClient.readContract({
-        //     abi: SplitPayAbi,
-        //     address: SPLITPAY_CONTRACT_ADDRESS,
-        //     functionName: "getSettlement",
-        //     args: [settlementId],
-        // });
+        return await publicClient.readContract({
+            abi: SplitPayAbi,
+            address: SPLITPAY_CONTRACT_ADDRESS,
+            functionName: "getSettlement",
+            args: [settlementId],
+        });
     }
 
     return (
