@@ -85,7 +85,7 @@ function Settle(props: SettleProps) {
                 toast.loading("Paying up", { id: settleToast });
                 await callSettle();
             } catch (error) {
-                toast.error("Something went wrong", { id: settleToast });
+                toast.error(error as string, { id: settleToast });
             }
         }
     }
