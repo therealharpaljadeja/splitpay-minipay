@@ -69,7 +69,9 @@ export default function MyModal({ isOpen, setIsOpen }: ModalProps) {
                 await publicClient.waitForTransactionReceipt({ hash });
                 toast.success("Expense Created!", { id: createToast });
             } catch (e) {
-                toast.error("Something Went Wrong!", { id: createToast });
+                toast.error((e as any).toString() as string, {
+                    id: createToast,
+                });
             } finally {
                 closeModal();
             }

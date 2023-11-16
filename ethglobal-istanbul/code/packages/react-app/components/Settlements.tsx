@@ -16,7 +16,7 @@ export default function Settlements({ settlements }: SettlementsProps) {
     return settlements.map((settlement) => {
         let { amount, expense, isSettled, id } = settlement;
 
-        console.log("Amount", amount);
+        console.log("id", id);
         if (expense) {
             let { title } = expense;
             return (

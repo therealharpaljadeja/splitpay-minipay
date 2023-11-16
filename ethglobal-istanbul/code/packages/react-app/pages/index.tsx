@@ -9,7 +9,6 @@ import { formatEther, getContract } from "viem";
 import EffectiveBalance from "@/components/EffectiveBalance";
 import Expenses from "@/components/Expenses";
 import Settlements from "@/components/Settlements";
-import { ethers } from "ethers";
 
 export const SPLITPAY_CONTRACT_ADDRESS =
     "0x36Eef317F736FC5d7D0CAAe80a1bD7aD1D93B874";
@@ -94,7 +93,6 @@ export default function Home() {
                 }
 
                 setExpenses(_expenses);
-
                 let _settlements = [];
 
                 for (let i = 0; i < settlements.length; i++) {
